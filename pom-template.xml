@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <groupId>org.boost.android.ndk</groupId>
+  <artifactId>NAME</artifactId>
+  <version>VERSION</version>
+  <packaging>aar</packaging>
+  <name>NAME</name>
+  <description></description>
+  <url>https://www.boost.org/</url>
+  <licenses>
+    <license>
+      <name>Distributed under the Boost Software License, Version 1.0.</name>
+      <url>http://www.boost.org/LICENSE_1_0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+  </developers>
+  <scm>
+    <connection></connection>
+    <url></url>
+  </scm>
+  <dependencies>
+  </dependencies>
+</project>
