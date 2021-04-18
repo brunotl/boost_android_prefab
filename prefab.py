@@ -77,22 +77,30 @@ def create_maven_pom(path, module, version, depends):
 
     with open(os.path.join(module.abspath, 'meta', 'libraries.json'), 'r') as f:
         content = json.load(f)
+        if 'key' in content:
+            pass
+        else:
+            content = content[0]
+
         if 'description' in content:
             for node in xml.findall('./pom:description', ns):
                 node.text = content['description']
+
         if 'name' in content:
             for node in xml.findall('./pom:name', ns):
                 node.text = content['name']
-        if 'authors' in content:
+
+
+        if 'maintainers' in content:
             for node in xml.findall('./pom:developers', ns):
-                for author in content['authors']:
+                for author in content['maintainers']:
                     developer = xmlNode.SubElement(node, '{http://maven.apache.org/POM/4.0.0}developer')
                     name = xmlNode.SubElement(developer, '{http://maven.apache.org/POM/4.0.0}name')
                     name.text = author
         else :
-            if 'maintainer' in content:
+            if 'authors' in content:
                 for node in xml.findall('./pom:developers', ns):
-                    for author in content['maintainer']:
+                    for author in content['authors']:
                         developer = xmlNode.SubElement(node, '{http://maven.apache.org/POM/4.0.0}developer')
                         name = xmlNode.SubElement(developer, '{http://maven.apache.org/POM/4.0.0}name')
                         name.text = author
@@ -161,3 +169,13 @@ def create_prefab_package(module, version, depends):
                         'install:install-file', 
                         '-Dfile=' + path + '.aar', 
                         '-DpomFile=' + path + '.pom'])
+
+    # # Deploy to sonatype OSSRH maven remote repository
+    local_mvn_setting = os.path.join(os.getenv("HOME"),'.m2', 'settings.xml')
+    subprocess.call(['mvn',
+                        'gpg:sign-and-deploy-file',
+                        '-Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/',
+                        '-Dfile=' + path + '.aar', 
+                        '-DpomFile=' + path + '.pom',
+                        '-DrepositoryId=ossrh',
+                        '--settings', local_mvn_setting])

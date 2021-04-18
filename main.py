@@ -22,6 +22,6 @@ if( __name__ == "__main__" ):
     parser = argparse.ArgumentParser( description='Package Boost library into android prefab' )
     parser.add_argument( 'library', nargs="+", help="name of library to build" )
     args = parser.parse_args()
-    
+
     for library in args.library:
         depends_callback(root.updateModule(library))
