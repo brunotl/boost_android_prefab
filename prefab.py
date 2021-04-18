@@ -6,7 +6,6 @@ from xml.etree import ElementTree as xmlNode
 import shutil
 from url_normalize import url_normalize
 import subprocess
-from bintray import upload_to_bintray
 
 def get_module_name(name):
     return 'boost_' + name
@@ -104,7 +103,7 @@ def create_maven_pom(path, module, version, depends):
             for mod in depends:
                 dependency = xmlNode.SubElement(node, '{http://maven.apache.org/POM/4.0.0}dependency')
 
-                xmlNode.SubElement(dependency, '{http://maven.apache.org/POM/4.0.0}groupId').text = 'org.boost.android.ndk'
+                xmlNode.SubElement(dependency, '{http://maven.apache.org/POM/4.0.0}groupId').text = 'com.github.brunotl'
                 xmlNode.SubElement(dependency, '{http://maven.apache.org/POM/4.0.0}artifactId').text = get_module_name(mod)
                 xmlNode.SubElement(dependency, '{http://maven.apache.org/POM/4.0.0}version').text = version
                 xmlNode.SubElement(dependency, '{http://maven.apache.org/POM/4.0.0}type').text = 'aar'
@@ -162,8 +161,3 @@ def create_prefab_package(module, version, depends):
                         'install:install-file', 
                         '-Dfile=' + path + '.aar', 
                         '-DpomFile=' + path + '.pom'])
-
-
-    # TODO : publish on bintray
-    #upload_to_bintray(path, get_module_name(module.name), url_normalize(os.path.join(module.repo.remotes.origin.url, module.url)))
-
