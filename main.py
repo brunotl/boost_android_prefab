@@ -4,7 +4,7 @@ import re
 from git_boost import boostorg
 import prefab
 
-version = '1.76.0'
+version = '1.78.0'
 depends = {}
 root = boostorg(version)
 
